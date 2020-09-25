@@ -2,11 +2,10 @@
 
 A Flutter package allows you to easily implement the Credit card's UI easily with the Card detection.
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e546818ff64e4883a18a920f6a1c091c)](https://www.codacy.com/app/reg_3/flutter_credit_card?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=simformsolutions/flutter_credit_card&amp;utm_campaign=Badge_Grade)
 
 ## Preview
 
-![The example app running in Android](https://github.com/simformsolutions/flutter_credit_card/blob/master/preview/preview.gif)
+![The example app running in Android](https://github.com/JoseBarreto1/flutter_credit_card_brazilian/blob/master/preview/preview.gif)
 
 ## Installing
 
@@ -16,12 +15,12 @@ A Flutter package allows you to easily implement the Credit card's UI easily wit
     
 ```dart
 dependencies:
-    flutter_credit_card: 0.1.1
+    flutter_credit_card_brazilian: 0.0.1
 ```
 
 2.  Import the package
 ```dart
-import 'package:flutter_credit_card/flutter_credit_card.dart';
+import 'package:flutter_credit_card_brazilian/flutter_credit_card_brazilian.dart';
 ```
 
 3.  Adding CreditCardWidget
