@@ -21,7 +21,7 @@ Bandeiras presentes no pacote:
 
 ![O aplicativo de exemplo em execução no Android](https://github.com/JoseBarreto1/flutter_credit_card_brazilian/blob/master/preview/preview.gif)
 
-## Installing
+## Instalando
 
 1.  Adicionar dependência a `pubspec.yaml`
 
@@ -29,7 +29,7 @@ Bandeiras presentes no pacote:
     
 ```dart
 dependencies:
-    flutter_credit_card_brazilian: 0.0.2
+    flutter_credit_card_brazilian: 0.0.3
 ```
 
 2.  Importe o pacote
@@ -54,6 +54,9 @@ import 'package:flutter_credit_card_brazilian/flutter_credit_card_brazilian.dart
 ```dart   
     CreditCardWidget(
         cardNumber: cardNumber,
+        cardName: (String value) {
+            print(value);
+        },
         expiryDate: expiryDate,
         cardHolderName: cardHolderName,
         cvvCode: cvvCode,
@@ -65,7 +68,7 @@ import 'package:flutter_credit_card_brazilian/flutter_credit_card_brazilian.dart
         animationDuration: Duration(milliseconds: 1000),
         ),
 ``` 
-3.  Adding CreditCardForm
+3.  Adicionando CreditCardForm
 
 ```dart
     CreditCardForm(
@@ -74,9 +77,9 @@ import 'package:flutter_credit_card_brazilian/flutter_credit_card_brazilian.dart
     ),
 ```
 
-## Localization
+## Localização
 
-To localize text field hints and labels, use `LocalizedText` model.
+Para localizar dicas e rótulos de campo de texto, use o modelo `LocalizedText`.
 
 ```dart
 const LocalizedText localizedText = LocalizedText(
@@ -111,5 +114,5 @@ return Column(
 );
 ```
 
-## How to use
-Check out the **example** app in the [example](example) directory or the 'Example' tab on pub.dartlang.org for a more complete example.
+## Como usar
+Verifique o aplicativo ** example ** no diretório [example] (example) ou a guia 'Example' em pub.dartlang.org para um exemplo mais completo.

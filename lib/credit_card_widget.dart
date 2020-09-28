@@ -46,7 +46,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
   Animation<double> _frontRotation;
   Animation<double> _backRotation;
   Gradient backgroundGradientColor;
-
+  bool statusNameCard = true;
   bool isAmex = false;
 
   @override
@@ -472,8 +472,13 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
   // This method returns the icon for the visa card type if found
   // else will return the empty container
   Widget getCardTypeIcon(String cardNumber) {
-    if (cardNumber.length > 14) {
+    if (cardNumber.length > 17 && statusNameCard) {
       widget.cardName(getCardTypeName(cardNumber));
+      if (cardNumber.length == 19) {
+        statusNameCard = false;
+      }
+    } else if (cardNumber.length > 16 && cardNumber.length < 19) {
+      statusNameCard = true;
     }
     Widget icon;
     switch (detectCCType(cardNumber)) {
