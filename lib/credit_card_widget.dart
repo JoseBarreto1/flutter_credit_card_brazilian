@@ -8,6 +8,7 @@ class CreditCardWidget extends StatefulWidget {
   const CreditCardWidget({
     Key key,
     @required this.cardNumber,
+    this.cardName,
     @required this.expiryDate,
     @required this.cardHolderName,
     @required this.cvvCode,
@@ -34,7 +35,7 @@ class CreditCardWidget extends StatefulWidget {
   final double height;
   final double width;
   final LocalizedText localizedText;
-
+  final Function(String) cardName;
   @override
   _CreditCardWidgetState createState() => _CreditCardWidgetState();
 }
@@ -244,6 +245,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
     BuildContext context,
     Orientation orientation,
   ) {
+    //widget.cardName(getCardTypeName(widget.cardNumber));
     final TextStyle defaultTextStyle = Theme.of(context).textTheme.title.merge(
           TextStyle(
             color: Colors.white,
@@ -325,6 +327,9 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
   /// i.e. ['51', '55'] represents the range of cards starting with '51' to those starting with '55'
   Map<CardType, Set<List<String>>> cardNumPatterns =
       <CardType, Set<List<String>>>{
+    CardType.aura: <List<String>>{
+      <String>['50'],
+    },
     CardType.visa: <List<String>>{
       <String>['4'],
     },
@@ -345,6 +350,72 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
       <String>['23', '26'],
       <String>['270', '271'],
       <String>['2720'],
+    },
+    CardType.dinersclub: <List<String>>{
+      <String>['30'],
+      <String>['300', '305'],
+      <String>['36'],
+      <String>['38'],
+      <String>['39'],
+    },
+    CardType.jcb: {
+      <String>['3506', '3589'],
+      <String>['2131'],
+      <String>['1800'],
+    },
+    CardType.elo: {
+      <String>['4011'],
+      <String>['401178'],
+      <String>['401179'],
+      <String>['438935'],
+      <String>['457631'],
+      <String>['457632'],
+      <String>['431274'],
+      <String>['451416'],
+      <String>['457393'],
+      <String>['504175'],
+      <String>['506699', '506778'],
+      <String>['509000', '509999'],
+      <String>['627780'],
+      <String>['636297'],
+      <String>['636368'],
+      <String>['650031', '650033'],
+      <String>['650035', '650051'],
+      <String>['650405', '650439'],
+      <String>['650485', '650538'],
+      <String>['650541', '650598'],
+      <String>['650700', '650718'],
+      <String>['650720', '650727'],
+      <String>['650901', '650978'],
+      <String>['651652', '651679'],
+      <String>['655000', '655019'],
+      <String>['655021', '655058'],
+      <String>['6555'],
+    },
+    CardType.hiper: {
+      <String>['637095'],
+      <String>['637568'],
+      <String>['637599'],
+      <String>['637609'],
+      <String>['637612'],
+    },
+    CardType.assomise: {
+      <String>['639595'],
+      <String>['608732'],
+    },
+    CardType.fortbrasil: {
+      <String>['628167'],
+    },
+    CardType.sorocred: {
+      <String>['627892'],
+      <String>['606014'],
+      <String>['636414'],
+    },
+    CardType.hipercard: {
+      <String>['6062'],
+      <String>['384100'],
+      <String>['384140'],
+      <String>['384160'],
     },
   };
 
@@ -401,6 +472,9 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
   // This method returns the icon for the visa card type if found
   // else will return the empty container
   Widget getCardTypeIcon(String cardNumber) {
+    if (cardNumber.length > 14) {
+      widget.cardName(getCardTypeName(cardNumber));
+    }
     Widget icon;
     switch (detectCCType(cardNumber)) {
       case CardType.visa:
@@ -443,6 +517,96 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
         isAmex = false;
         break;
 
+      case CardType.assomise:
+        icon = Image.asset(
+          'icons/assomise.png',
+          height: 48,
+          width: 48,
+          package: 'flutter_credit_card_brazilian',
+        );
+        isAmex = false;
+        break;
+
+      case CardType.aura:
+        icon = Image.asset(
+          'icons/aura.png',
+          height: 48,
+          width: 48,
+          package: 'flutter_credit_card_brazilian',
+        );
+        isAmex = false;
+        break;
+
+      case CardType.dinersclub:
+        icon = Image.asset(
+          'icons/dinersclub.png',
+          height: 48,
+          width: 48,
+          package: 'flutter_credit_card_brazilian',
+        );
+        isAmex = false;
+        break;
+
+      case CardType.fortbrasil:
+        icon = Image.asset(
+          'icons/fortbrasil.png',
+          height: 48,
+          width: 48,
+          package: 'flutter_credit_card_brazilian',
+        );
+        isAmex = false;
+        break;
+
+      case CardType.elo:
+        icon = Image.asset(
+          'icons/elo.png',
+          height: 48,
+          width: 48,
+          package: 'flutter_credit_card_brazilian',
+        );
+        isAmex = false;
+        break;
+
+      case CardType.hiper:
+        icon = Image.asset(
+          'icons/hiper.png',
+          height: 48,
+          width: 48,
+          package: 'flutter_credit_card_brazilian',
+        );
+        isAmex = false;
+        break;
+
+      case CardType.hipercard:
+        icon = Image.asset(
+          'icons/hipercard.png',
+          height: 48,
+          width: 48,
+          package: 'flutter_credit_card_brazilian',
+        );
+        isAmex = false;
+        break;
+
+      case CardType.jcb:
+        icon = Image.asset(
+          'icons/jcb.png',
+          height: 48,
+          width: 48,
+          package: 'flutter_credit_card_brazilian',
+        );
+        isAmex = false;
+        break;
+
+      case CardType.sorocred:
+        icon = Image.asset(
+          'icons/sorocred.png',
+          height: 48,
+          width: 48,
+          package: 'flutter_credit_card_brazilian',
+        );
+        isAmex = false;
+        break;
+
       default:
         icon = Container(
           height: 48,
@@ -453,6 +617,55 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
     }
 
     return icon;
+  }
+
+  String getCardTypeName(String cardNumber) {
+    String name = '';
+    switch (detectCCType(cardNumber)) {
+      case CardType.visa:
+        name = 'VISA';
+        break;
+      case CardType.americanExpress:
+        name = 'AMERICANEXPRESS';
+        break;
+      case CardType.mastercard:
+        name = 'MASTERCARD';
+        break;
+      case CardType.discover:
+        name = 'DISCOVER';
+        break;
+      case CardType.assomise:
+        name = 'ASSOMISE';
+        break;
+      case CardType.aura:
+        name = 'AURA';
+        break;
+      case CardType.dinersclub:
+        name = 'DINERSCLUB';
+        break;
+      case CardType.fortbrasil:
+        name = 'FORTBRASIL';
+        break;
+      case CardType.elo:
+        name = 'ELO';
+        break;
+      case CardType.hiper:
+        name = 'HIPER';
+        break;
+      case CardType.hipercard:
+        name = 'HIPERCARD';
+        break;
+      case CardType.jcb:
+        name = 'JCB';
+        break;
+      case CardType.sorocred:
+        name = 'SOROCRED';
+        break;
+      default:
+        name = '';
+        break;
+    }
+    return name;
   }
 }
 
@@ -610,4 +823,13 @@ enum CardType {
   visa,
   americanExpress,
   discover,
+  elo,
+  assomise,
+  dinersclub,
+  fortbrasil,
+  hiper,
+  hipercard,
+  jcb,
+  sorocred,
+  aura
 }

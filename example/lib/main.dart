@@ -33,6 +33,9 @@ class MySampleState extends State<MySample> {
           child: Column(
             children: <Widget>[
               CreditCardWidget(
+                cardName: (String value) {
+                  print(value);
+                },
                 cardNumber: cardNumber,
                 expiryDate: expiryDate,
                 cardHolderName: cardHolderName,

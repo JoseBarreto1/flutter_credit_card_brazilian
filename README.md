@@ -1,31 +1,45 @@
-# Flutter Credit Card
+# Flutter Credit Card Brazilian
 
-A Flutter package allows you to easily implement the Credit card's UI easily with the Card detection.
+Pacote Flutter que permite você implementar facilmente a IU do cartão de crédito com a detecção de cartão.
 
+Bandeiras presentes no pacote:
+*  mastercard,
+*  visa,
+*  americanExpress,
+*  discover,
+*  elo,
+*  assomise,
+*  dinersclub,
+*  fortbrasil,
+*  hiper,
+*  hipercard,
+*  jcb,
+*  sorocred,
+*  aura
 
 ## Preview
 
-![The example app running in Android](https://github.com/JoseBarreto1/flutter_credit_card_brazilian/blob/master/preview/preview.gif)
+![O aplicativo de exemplo em execução no Android](https://github.com/JoseBarreto1/flutter_credit_card_brazilian/blob/master/preview/preview.gif)
 
 ## Installing
 
-1.  Add dependency to `pubspec.yaml`
+1.  Adicionar dependência a `pubspec.yaml`
 
-    *Get the latest version in the 'Installing' tab on pub.dartlang.org*
+    *Obtenha a versão mais recente na guia 'Instalando' em pub.dartlang.org*
     
 ```dart
 dependencies:
-    flutter_credit_card_brazilian: 0.0.1
+    flutter_credit_card_brazilian: 0.0.2
 ```
 
-2.  Import the package
+2.  Importe o pacote
 ```dart
 import 'package:flutter_credit_card_brazilian/flutter_credit_card_brazilian.dart';
 ```
 
-3.  Adding CreditCardWidget
+3.  Adicionando CreditCardWidget
 
-*With required parameters*
+*Parâmetros obrigatórios*
 ```dart
 
     CreditCardWidget(
@@ -36,7 +50,7 @@ import 'package:flutter_credit_card_brazilian/flutter_credit_card_brazilian.dart
         showBackView: isCvvFocused, //true when you want to show cvv(back) view
     ),
 ```    
-*With optional parameters*
+*Parâmetro opcionais*
 ```dart   
     CreditCardWidget(
         cardNumber: cardNumber,
@@ -99,7 +113,3 @@ return Column(
 
 ## How to use
 Check out the **example** app in the [example](example) directory or the 'Example' tab on pub.dartlang.org for a more complete example.
-
-## Credit
-
-This package's animation is inspired from from this [Dribbble](https://dribbble.com/shots/2187649-Credit-card-Checkout-flow-AMEX) art.
