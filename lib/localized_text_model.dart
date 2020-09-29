@@ -10,13 +10,13 @@ class LocalizedText {
     this.cardHolderHint = _cardHolderHintDefault,
   });
 
-  static const String _cardNumberLabelDefault = 'Card number';
+  static const String _cardNumberLabelDefault = 'Número do cartão';
   static const String _cardNumberHintDefault = 'xxxx xxxx xxxx xxxx';
-  static const String _expiryDateLabelDefault = 'Expiry Date';
+  static const String _expiryDateLabelDefault = 'Validade';
   static const String _expiryDateHintDefault = 'MM/YY';
   static const String _cvvLabelDefault = 'CVV';
   static const String _cvvHintDefault = 'XXXX';
-  static const String _cardHolderLabelDefault = 'Card Holder';
+  static const String _cardHolderLabelDefault = 'Nome completo';
   static const String _cardHolderHintDefault = '';
 
   final String cardNumberLabel;

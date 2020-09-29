@@ -34,13 +34,13 @@ void main() {
   });
 
   test('Object correctly instantiated with defaults', () {
-    const String cardNumberLabel = 'Card number';
+    const String cardNumberLabel = 'Número do cartão';
     const String cardNumberHint = 'xxxx xxxx xxxx xxxx';
-    const String expiryDateLabel = 'Expiry Date';
+    const String expiryDateLabel = 'Validade';
     const String expiryDateHint = 'MM/YY';
     const String cvvLabel = 'CVV';
     const String cvvHint = 'XXXX';
-    const String cardHolderLabel = 'Card Holder';
+    const String cardHolderLabel = 'Nome completo';
     const String cardHolderHint = '';
 
     const LocalizedText localizedText = LocalizedText();
