@@ -411,6 +411,9 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
       <String>['606014'],
       <String>['636414'],
     },
+    CardType.realcard: {
+      <String>['637176'],
+    },
     CardType.hipercard: {
       <String>['6062'],
       <String>['384100'],
@@ -612,6 +615,16 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
         isAmex = false;
         break;
 
+      case CardType.realcard:
+        icon = Image.asset(
+          'icons/realcard.png',
+          height: 48,
+          width: 48,
+          package: 'flutter_credit_card_brazilian',
+        );
+        isAmex = false;
+        break;
+
       default:
         icon = Container(
           height: 48,
@@ -665,6 +678,9 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
         break;
       case CardType.sorocred:
         name = 'SOROCRED';
+        break;
+      case CardType.realcard:
+        name = 'REALCARD';
         break;
       default:
         name = '';
@@ -828,6 +844,7 @@ enum CardType {
   visa,
   americanExpress,
   discover,
+  realcard,
   elo,
   assomise,
   dinersclub,

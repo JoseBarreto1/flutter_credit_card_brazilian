@@ -15,6 +15,7 @@ Bandeiras presentes no pacote:
 *  hipercard,
 *  jcb,
 *  sorocred,
+*  realcard,
 *  aura
 
 ## Preview
@@ -29,7 +30,7 @@ Bandeiras presentes no pacote:
     
 ```dart
 dependencies:
-    flutter_credit_card_brazilian: 0.0.3
+    flutter_credit_card_brazilian: 0.0.5
 ```
 
 2.  Importe o pacote
