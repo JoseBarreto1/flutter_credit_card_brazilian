@@ -420,6 +420,20 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
       <String>['384140'],
       <String>['384160'],
     },
+    CardType.cabal: {
+      <String>['60'],
+      <String>['99'],
+    },
+    CardType.credishop: {
+      <String>['603136'],
+      <String>['603134'],
+      <String>['603135'],
+    },
+    CardType.banese: {
+      <String>['6366'],
+      <String>['6361'],
+      <String>['6374']
+    }
   };
 
   /// This function determines the Credit Card type based on the cardPatterns
@@ -475,12 +489,12 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
   // This method returns the icon for the visa card type if found
   // else will return the empty container
   Widget getCardTypeIcon(String cardNumber) {
-    if (cardNumber.length > 17 && statusNameCard) {
+    if (cardNumber.length > 16 && statusNameCard) {
       widget.cardName(getCardTypeName(cardNumber));
-      if (cardNumber.length == 19) {
+      if (cardNumber.length == 18) {
         statusNameCard = false;
       }
-    } else if (cardNumber.length > 16 && cardNumber.length < 19) {
+    } else if (cardNumber.length > 15 && cardNumber.length < 18) {
       statusNameCard = true;
     }
     Widget icon;
@@ -624,6 +638,35 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
         );
         isAmex = false;
         break;
+      case CardType.cabal:
+        icon = Image.asset(
+          'icons/cabal.png',
+          height: 48,
+          width: 48,
+          package: 'flutter_credit_card_brazilian',
+        );
+        isAmex = false;
+        break;
+
+      case CardType.credishop:
+        icon = Image.asset(
+          'icons/credishop.png',
+          height: 48,
+          width: 48,
+          package: 'flutter_credit_card_brazilian',
+        );
+        isAmex = false;
+        break;
+
+      case CardType.banese:
+        icon = Image.asset(
+          'icons/banese.png',
+          height: 48,
+          width: 48,
+          package: 'flutter_credit_card_brazilian',
+        );
+        isAmex = false;
+        break;
 
       default:
         icon = Container(
@@ -644,7 +687,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
         name = 'VISA';
         break;
       case CardType.americanExpress:
-        name = 'AMERICANEXPRESS';
+        name = 'AMEX';
         break;
       case CardType.mastercard:
         name = 'MASTERCARD';
@@ -659,7 +702,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
         name = 'AURA';
         break;
       case CardType.dinersclub:
-        name = 'DINERSCLUB';
+        name = 'DINERS';
         break;
       case CardType.fortbrasil:
         name = 'FORTBRASIL';
@@ -681,6 +724,15 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
         break;
       case CardType.realcard:
         name = 'REALCARD';
+        break;
+      case CardType.cabal:
+        name = 'CABAL';
+        break;
+      case CardType.banese:
+        name = 'BANESECARD';
+        break;
+      case CardType.credishop:
+        name = 'CREDISHOP';
         break;
       default:
         name = '';
@@ -853,5 +905,8 @@ enum CardType {
   hipercard,
   jcb,
   sorocred,
+  banese,
+  credishop,
+  cabal,
   aura
 }

@@ -16,7 +16,10 @@ Bandeiras presentes no pacote:
 *  jcb,
 *  sorocred,
 *  realcard,
-*  aura
+*  aura,
+*  credishop,
+*  cabal,
+*  banesecard,
 
 ## Preview
 
@@ -30,7 +33,7 @@ Bandeiras presentes no pacote:
     
 ```dart
 dependencies:
-    flutter_credit_card_brazilian: 0.0.5
+    flutter_credit_card_brazilian: 0.0.6
 ```
 
 2.  Importe o pacote
@@ -77,6 +80,24 @@ import 'package:flutter_credit_card_brazilian/flutter_credit_card_brazilian.dart
       onCreditCardModelChange: (CreditCardModel data) {},
     ),
 ```
+## Retornos da função cardHolderName:
+*  VISA
+*  AMEX
+*  MASTERCARD
+*  DISCOVER
+*  ASSOMISE
+*  AURA
+*  DINERS
+*  FORTBRASIL
+*  ELO
+*  HIPER
+*  HIPERCARD
+*  JCB
+*  SOROCRED
+*  REALCARD
+*  CABAL
+*  BANESECARD
+*  CREDISHOP
 
 ## Localização
 
