@@ -35,7 +35,7 @@ class CreditCardWidget extends StatefulWidget {
   final double height;
   final double width;
   final LocalizedText localizedText;
-  final Function(String) cardName;
+  final String cardName;
   @override
   _CreditCardWidgetState createState() => _CreditCardWidgetState();
 }
@@ -489,12 +489,6 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
   // This method returns the icon for the visa card type if found
   // else will return the empty container
   Widget getCardTypeIcon(String cardNumber) {
-    if (cardNumber.length > 14 && statusNameCard) {
-      widget.cardName(getCardTypeName(cardNumber));
-      statusNameCard = false;
-    } else if (cardNumber.length < 14) {
-      statusNameCard = true;
-    }
     Widget icon;
     switch (detectCCType(cardNumber)) {
       case CardType.visa:
@@ -676,67 +670,6 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
     }
 
     return icon;
-  }
-
-  String getCardTypeName(String cardNumber) {
-    String name = '';
-    switch (detectCCType(cardNumber)) {
-      case CardType.visa:
-        name = 'VISA';
-        break;
-      case CardType.americanExpress:
-        name = 'AMEX';
-        break;
-      case CardType.mastercard:
-        name = 'MASTERCARD';
-        break;
-      case CardType.discover:
-        name = 'DISCOVER';
-        break;
-      case CardType.assomise:
-        name = 'ASSOMISE';
-        break;
-      case CardType.aura:
-        name = 'AURA';
-        break;
-      case CardType.dinersclub:
-        name = 'DINERS';
-        break;
-      case CardType.fortbrasil:
-        name = 'FORTBRASIL';
-        break;
-      case CardType.elo:
-        name = 'ELO';
-        break;
-      case CardType.hiper:
-        name = 'HIPER';
-        break;
-      case CardType.hipercard:
-        name = 'HIPERCARD';
-        break;
-      case CardType.jcb:
-        name = 'JCB';
-        break;
-      case CardType.sorocred:
-        name = 'SOROCRED';
-        break;
-      case CardType.realcard:
-        name = 'REALCARD';
-        break;
-      case CardType.cabal:
-        name = 'CABAL';
-        break;
-      case CardType.banese:
-        name = 'BANESECARD';
-        break;
-      case CardType.credishop:
-        name = 'CREDISHOP';
-        break;
-      default:
-        name = '';
-        break;
-    }
-    return name;
   }
 }
 

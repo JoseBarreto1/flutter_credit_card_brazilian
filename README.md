@@ -33,7 +33,7 @@ Bandeiras presentes no pacote:
     
 ```dart
 dependencies:
-    flutter_credit_card_brazilian: 0.0.7
+    flutter_credit_card_brazilian: 0.0.8
 ```
 
 2.  Importe o pacote
