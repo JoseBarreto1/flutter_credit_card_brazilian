@@ -34,7 +34,9 @@ class MySampleState extends State<MySample> {
           child: Column(
             children: <Widget>[
               CreditCardWidget(
-                cardName: cardName,
+                cardName: (String value) {
+                  print(value);
+                },
                 cardNumber: cardNumber,
                 expiryDate: expiryDate,
                 cardHolderName: cardHolderName,
@@ -56,12 +58,9 @@ class MySampleState extends State<MySample> {
   }
 
   void onCreditCardModelChange(CreditCardModel creditCardModel) {
-    print(creditCardModel.cardName);
-    print(creditCardModel.cardNumber);
     setState(() {
       cardNumber = creditCardModel.cardNumber;
       expiryDate = creditCardModel.expiryDate;
-      cardName = creditCardModel.cardName;
       cardHolderName = creditCardModel.cardHolderName;
       cvvCode = creditCardModel.cvvCode;
       isCvvFocused = creditCardModel.isCvvFocused;

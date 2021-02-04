@@ -35,7 +35,7 @@ class CreditCardWidget extends StatefulWidget {
   final double height;
   final double width;
   final LocalizedText localizedText;
-  final String cardName;
+  final Function(String) cardName;
   @override
   _CreditCardWidgetState createState() => _CreditCardWidgetState();
 }
@@ -114,6 +114,9 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
     final Orientation orientation = MediaQuery.of(context).orientation;
+    Future.delayed(Duration.zero, () async {
+      widget.cardName(getCardTypeName(widget.cardNumber));
+    });
 
     ///
     /// If uer adds CVV then toggle the card from front to back..
@@ -668,8 +671,68 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
         isAmex = false;
         break;
     }
-
     return icon;
+  }
+
+  String getCardTypeName(String cardNumber) {
+    String name = '';
+    switch (detectCCType(cardNumber)) {
+      case CardType.visa:
+        name = 'VISA';
+        break;
+      case CardType.americanExpress:
+        name = 'AMEX';
+        break;
+      case CardType.mastercard:
+        name = 'MASTERCARD';
+        break;
+      case CardType.discover:
+        name = 'DISCOVER';
+        break;
+      case CardType.assomise:
+        name = 'ASSOMISE';
+        break;
+      case CardType.aura:
+        name = 'AURA';
+        break;
+      case CardType.dinersclub:
+        name = 'DINERS';
+        break;
+      case CardType.fortbrasil:
+        name = 'FORTBRASIL';
+        break;
+      case CardType.elo:
+        name = 'ELO';
+        break;
+      case CardType.hiper:
+        name = 'HIPER';
+        break;
+      case CardType.hipercard:
+        name = 'HIPERCARD';
+        break;
+      case CardType.jcb:
+        name = 'JCB';
+        break;
+      case CardType.sorocred:
+        name = 'SOROCRED';
+        break;
+      case CardType.realcard:
+        name = 'REALCARD';
+        break;
+      case CardType.cabal:
+        name = 'CABAL';
+        break;
+      case CardType.banese:
+        name = 'BANESECARD';
+        break;
+      case CardType.credishop:
+        name = 'CREDISHOP';
+        break;
+      default:
+        name = '';
+        break;
+    }
+    return name;
   }
 }
 
