@@ -489,12 +489,10 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
   // This method returns the icon for the visa card type if found
   // else will return the empty container
   Widget getCardTypeIcon(String cardNumber) {
-    if (cardNumber.length > 16 && statusNameCard) {
+    if (cardNumber.length > 14 && statusNameCard) {
       widget.cardName(getCardTypeName(cardNumber));
-      if (cardNumber.length == 18) {
-        statusNameCard = false;
-      }
-    } else if (cardNumber.length > 15 && cardNumber.length < 18) {
+      statusNameCard = false;
+    } else if (cardNumber.length < 14) {
       statusNameCard = true;
     }
     Widget icon;

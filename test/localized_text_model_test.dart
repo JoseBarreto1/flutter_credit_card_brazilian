@@ -35,7 +35,7 @@ void main() {
 
   test('Object correctly instantiated with defaults', () {
     const String cardNumberLabel = 'Número do cartão';
-    const String cardNumberHint = 'xxxx xxxx xxxx xxxx';
+    const String cardNumberHint = 'XXXX XXXX XXXX XXXXX';
     const String expiryDateLabel = 'Validade';
     const String expiryDateHint = 'MM/YY';
     const String cvvLabel = 'CVV';
