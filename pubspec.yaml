@@ -1,12 +1,12 @@
 name: flutter_credit_card_brazilian
 description: Componente para Cartão de Credito.
-version: 0.0.9
+version: 2.0.0
 author: José Barreto <jbarretosantosjr@gmail.com>
 homepage: https://github.com/JoseBarreto1/flutter_credit_card_brazilian
 issue_tracker : https://github.com/JoseBarreto1/flutter_credit_card_brazilian/issues
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -16,27 +16,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-# For information on the generic Dart part of this file, see the
-# following page: https://www.dartlang.org/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
-
-  # To add assets to your package, add an assets section, like this:
   assets:
     - icons/
-#
-# For details regarding assets in packages, see
-# https://flutter.dev/assets-and-images/#from-packages
-#
-# An image asset can refer to one or more resolution-specific "variants", see
-# https://flutter.dev/assets-and-images/#resolution-aware.
-
-# To add custom fonts to your package, add a fonts section here,
-# in this "flutter" section. Each entry in this list should have a
-# "family" key with the font family name, and a "fonts" key with a
-# list giving the asset and other descriptors for the font. For
-# example:
   fonts:
     - family: halter
       fonts:

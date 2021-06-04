@@ -7,46 +7,72 @@ import 'flutter_credit_card.dart';
 
 class CreditCardForm extends StatefulWidget {
   const CreditCardForm({
-    Key key,
-    this.cardNumber,
-    this.cardName,
-    this.expiryDate,
-    this.cardHolderName,
-    this.cvvCode,
-    @required this.onCreditCardModelChange,
-    this.themeColor,
+    Key? key,
+    required this.cardNumber,
+    required this.expiryDate,
+    required this.cardHolderName,
+    required this.cvvCode,
+    this.obscureCvv = false,
+    this.obscureNumber = false,
+    required this.onCreditCardModelChange,
+    required this.themeColor,
     this.textColor = Colors.black,
     this.cursorColor,
-    this.localizedText = const LocalizedText(),
-  })  : assert(localizedText != null),
-        super(key: key);
+    this.cardHolderDecoration = const InputDecoration(
+      labelText: 'Nome completo',
+    ),
+    this.cardNumberDecoration = const InputDecoration(
+      labelText: 'Número do cartão',
+      hintText: 'XXXX XXXX XXXX XXXX',
+    ),
+    this.expiryDateDecoration = const InputDecoration(
+      labelText: 'Validade',
+      hintText: 'MM/YY',
+    ),
+    this.cvvCodeDecoration = const InputDecoration(
+      labelText: 'CVV',
+      hintText: 'XXX',
+    ),
+    required this.formKey,
+    this.cvvValidationMessage = 'Por favor informar um CVV valido',
+    this.dateValidationMessage = 'Por favor informar uma data valida',
+    this.numberValidationMessage = 'Por favor informar um numero valido',
+  }) : super(key: key);
 
   final String cardNumber;
-  final String cardName;
   final String expiryDate;
   final String cardHolderName;
   final String cvvCode;
+  final String cvvValidationMessage;
+  final String dateValidationMessage;
+  final String numberValidationMessage;
   final void Function(CreditCardModel) onCreditCardModelChange;
   final Color themeColor;
   final Color textColor;
-  final Color cursorColor;
-  final LocalizedText localizedText;
+  final Color? cursorColor;
+  final bool obscureCvv;
+  final bool obscureNumber;
+  final GlobalKey<FormState> formKey;
+
+  final InputDecoration cardNumberDecoration;
+  final InputDecoration cardHolderDecoration;
+  final InputDecoration expiryDateDecoration;
+  final InputDecoration cvvCodeDecoration;
 
   @override
   _CreditCardFormState createState() => _CreditCardFormState();
 }
 
 class _CreditCardFormState extends State<CreditCardForm> {
-  String cardNumber;
-  String cardName;
-  String expiryDate;
-  String cardHolderName;
-  String cvvCode;
+  late String cardNumber;
+  late String expiryDate;
+  late String cardHolderName;
+  late String cvvCode;
   bool isCvvFocused = false;
-  Color themeColor;
+  late Color themeColor;
 
-  void Function(CreditCardModel) onCreditCardModelChange;
-  CreditCardModel creditCardModel;
+  late void Function(CreditCardModel) onCreditCardModelChange;
+  late CreditCardModel creditCardModel;
 
   final MaskedTextController _cardNumberController =
       MaskedTextController(mask: '0000 0000 0000 0000');
@@ -58,6 +84,9 @@ class _CreditCardFormState extends State<CreditCardForm> {
       MaskedTextController(mask: '0000');
 
   FocusNode cvvFocusNode = FocusNode();
+  FocusNode cardNumberNode = FocusNode();
+  FocusNode expiryDateNode = FocusNode();
+  FocusNode cardHolderNode = FocusNode();
 
   void textFieldFocusDidChange() {
     creditCardModel.isCvvFocused = cvvFocusNode.hasFocus;
@@ -65,14 +94,13 @@ class _CreditCardFormState extends State<CreditCardForm> {
   }
 
   void createCreditCardModel() {
-    cardNumber = widget.cardNumber ?? '';
-    cardName = widget.cardName ?? '';
-    expiryDate = widget.expiryDate ?? '';
-    cardHolderName = widget.cardHolderName ?? '';
-    cvvCode = widget.cvvCode ?? '';
+    cardNumber = widget.cardNumber;
+    expiryDate = widget.expiryDate;
+    cardHolderName = widget.cardHolderName;
+    cvvCode = widget.cvvCode;
 
-    creditCardModel = CreditCardModel(cardName, cardNumber, expiryDate,
-        cardHolderName, cvvCode, isCvvFocused);
+    creditCardModel = CreditCardModel(
+        cardNumber, expiryDate, cardHolderName, cvvCode, isCvvFocused);
   }
 
   @override
@@ -88,7 +116,6 @@ class _CreditCardFormState extends State<CreditCardForm> {
     _cardNumberController.addListener(() {
       setState(() {
         cardNumber = _cardNumberController.text;
-        creditCardModel.cardName = cardName;
         creditCardModel.cardNumber = cardNumber;
         onCreditCardModelChange(creditCardModel);
       });
@@ -120,8 +147,16 @@ class _CreditCardFormState extends State<CreditCardForm> {
   }
 
   @override
+  void dispose() {
+    cardHolderNode.dispose();
+    cvvFocusNode.dispose();
+    expiryDateNode.dispose();
+    super.dispose();
+  }
+
+  @override
   void didChangeDependencies() {
-    themeColor = widget.themeColor ?? Theme.of(context).primaryColor;
+    themeColor = widget.themeColor;
     super.didChangeDependencies();
   }
 
@@ -133,67 +168,107 @@ class _CreditCardFormState extends State<CreditCardForm> {
         primaryColorDark: themeColor,
       ),
       child: Form(
+        key: widget.formKey,
         child: Column(
           children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               margin: const EdgeInsets.only(left: 16, top: 16, right: 16),
               child: TextFormField(
+                obscureText: widget.obscureNumber,
                 controller: _cardNumberController,
                 cursorColor: widget.cursorColor ?? themeColor,
+                onEditingComplete: () {
+                  FocusScope.of(context).requestFocus(expiryDateNode);
+                },
                 style: TextStyle(
                   color: widget.textColor,
                 ),
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: widget.localizedText.cardNumberLabel,
-                  hintText: widget.localizedText.cardNumberHint,
-                ),
+                decoration: widget.cardNumberDecoration,
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.next,
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              margin: const EdgeInsets.only(left: 16, top: 8, right: 16),
-              child: TextFormField(
-                controller: _expiryDateController,
-                cursorColor: widget.cursorColor ?? themeColor,
-                style: TextStyle(
-                  color: widget.textColor,
-                ),
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: widget.localizedText.expiryDateLabel,
-                  hintText: widget.localizedText.expiryDateHint,
-                ),
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.next,
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              margin: const EdgeInsets.only(left: 16, top: 8, right: 16),
-              child: TextField(
-                focusNode: cvvFocusNode,
-                controller: _cvvCodeController,
-                cursorColor: widget.cursorColor ?? themeColor,
-                style: TextStyle(
-                  color: widget.textColor,
-                ),
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: widget.localizedText.cvvLabel,
-                  hintText: widget.localizedText.cvvHint,
-                ),
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.done,
-                onChanged: (String text) {
-                  setState(() {
-                    cvvCode = text;
-                  });
+                validator: (String? value) {
+                  // Validate less that 13 digits +3 white spaces
+                  if (value!.isEmpty || value.length < 16) {
+                    return widget.numberValidationMessage;
+                  }
+                  return null;
                 },
               ),
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    margin: const EdgeInsets.only(left: 16, top: 8, right: 16),
+                    child: TextFormField(
+                      controller: _expiryDateController,
+                      cursorColor: widget.cursorColor ?? themeColor,
+                      focusNode: expiryDateNode,
+                      onEditingComplete: () {
+                        FocusScope.of(context).requestFocus(cvvFocusNode);
+                      },
+                      style: TextStyle(
+                        color: widget.textColor,
+                      ),
+                      decoration: widget.expiryDateDecoration,
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
+                          return widget.dateValidationMessage;
+                        }
+
+                        final DateTime now = DateTime.now();
+                        final List<String> date = value.split(RegExp(r'/'));
+                        final int month = int.parse(date.first);
+                        final int year = int.parse('20${date.last}');
+                        final DateTime cardDate = DateTime(year, month);
+
+                        if (cardDate.isBefore(now) ||
+                            month > 12 ||
+                            month == 0) {
+                          return widget.dateValidationMessage;
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    margin: const EdgeInsets.only(left: 16, top: 8, right: 16),
+                    child: TextFormField(
+                      obscureText: widget.obscureCvv,
+                      focusNode: cvvFocusNode,
+                      controller: _cvvCodeController,
+                      cursorColor: widget.cursorColor ?? themeColor,
+                      onEditingComplete: () {
+                        FocusScope.of(context).requestFocus(cardHolderNode);
+                      },
+                      style: TextStyle(
+                        color: widget.textColor,
+                      ),
+                      decoration: widget.cvvCodeDecoration,
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      onChanged: (String text) {
+                        setState(() {
+                          cvvCode = text;
+                        });
+                      },
+                      validator: (String? value) {
+                        if (value!.isEmpty || value.length < 3) {
+                          return widget.cvvValidationMessage;
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -201,16 +276,16 @@ class _CreditCardFormState extends State<CreditCardForm> {
               child: TextFormField(
                 controller: _cardHolderNameController,
                 cursorColor: widget.cursorColor ?? themeColor,
+                focusNode: cardHolderNode,
                 style: TextStyle(
                   color: widget.textColor,
                 ),
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: widget.localizedText.cardHolderLabel,
-                  hintText: widget.localizedText.cardHolderHint,
-                ),
+                decoration: widget.cardHolderDecoration,
                 keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.next,
+                textInputAction: TextInputAction.done,
+                onEditingComplete: () {
+                  onCreditCardModelChange(creditCardModel);
+                },
               ),
             ),
           ],
